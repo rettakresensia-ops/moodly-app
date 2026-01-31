@@ -2,42 +2,52 @@
     <div class="py-12 bg-[#EAF4F4] min-h-screen">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             
-            <a href="{{ route('dashboard') }}" class="inline-block mb-6 text-[#778E7E] font-bold hover:underline">
-                ← Kembali ke Menu Utama
-            </a>
-
-            <div class="mb-8 flex items-center gap-4">
-                <span class="text-5xl">📅</span>
-                <h2 class="text-3xl font-black text-[#5F7A61]">Jurnal Perjalananmu</h2>
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-black text-[#5F7A61] tracking-tight">Riwayat Mood Kamu 📖</h2>
+                <a href="{{ route('dashboard') }}" class="bg-white px-6 py-2 rounded-2xl font-bold text-[#778E7E] shadow-sm hover:shadow-md transition">
+                    ← Kembali
+                </a>
             </div>
 
-            <div class="bg-white/80 backdrop-blur-md border-4 border-white rounded-[35px] overflow-hidden shadow-[0_0_30px_rgba(185,251,192,0.5)]">
+            <div class="bg-white/70 backdrop-blur-xl border-4 border-white rounded-[40px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
                 <table class="w-full text-left border-collapse">
-                    <thead class="bg-[#B9FBC0]/50">
-                        <tr>
-                            <th class="px-6 py-4 text-[#4F6355] font-black uppercase text-sm">Tanggal</th>
-                            <th class="px-6 py-4 text-[#4F6355] font-black uppercase text-sm text-center">Mood</th>
-                            <th class="px-6 py-4 text-[#4F6355] font-black uppercase text-sm">Catatan</th>
+                    <thead>
+                        <tr class="bg-[#B9FBC0]/30 text-[#4F6355]">
+                            <th class="px-8 py-5 font-black uppercase text-sm tracking-widest">Tanggal</th>
+                            <th class="px-8 py-5 font-black uppercase text-sm tracking-widest text-center">Mood</th>
+                            <th class="px-8 py-5 font-black uppercase text-sm tracking-widest">Catatan Moo</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y-2 divide-[#EAF4F4]">
-                        <tr class="hover:bg-white/50 transition">
-                            <td class="px-6 py-5 text-[#778E7E] font-medium">30 Jan 2026</td>
-                            <td class="px-6 py-5 text-center text-4xl">😊</td>
-                            <td class="px-6 py-5 text-[#5F7A61]">Hari ini presentasi lancar, Moo!</td>
+                        @forelse($moods as $m)
+                        <tr class="hover:bg-white/50 transition duration-200">
+                            <td class="px-8 py-6 text-[#778E7E] font-bold">
+                                {{ $m->created_at->translatedFormat('d F Y') }}
+                                <div class="text-[10px] opacity-50">{{ $m->created_at->diffForHumans() }}</div>
+                            </td>
+                            <td class="px-8 py-6 text-center text-5xl drop-shadow-sm">
+                                {{ ['hebat'=>'🌟', 'senang'=>'😊', 'biasa'=>'😐', 'sedih'=>'😔', 'stres'=>'😫'][$m->status] }}
+                            </td>
+                            <td class="px-8 py-6">
+                                <p class="text-[#5F7A61] leading-relaxed font-medium">
+                                    {{ $m->note ?? 'Tidak ada catatan untuk hari ini.' }}
+                                </p>
+                            </td>
                         </tr>
-                        <tr class="hover:bg-white/50 transition">
-                            <td class="px-6 py-5 text-[#778E7E] font-medium">29 Jan 2026</td>
-                            <td class="px-6 py-5 text-center text-4xl">😐</td>
-                            <td class="px-6 py-5 text-[#5F7A61]">Biasa saja, butuh istirahat sejenak.</td>
+                        @empty
+                        <tr>
+                            <td colspan="3" class="px-8 py-20 text-center">
+                                <div class="text-6xl mb-4">☁️</div>
+                                <p class="text-[#89A894] font-bold text-xl">Belum ada riwayat. Yuk, mulai catat mood-mu!</p>
+                            </td>
                         </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
 
-            <div class="mt-8 bg-[#FDF0D5] p-6 rounded-[25px] border-l-8 border-[#B9FBC0] flex items-center gap-4">
-                <span class="text-4xl">🐻‍❄️</span>
-                <p class="text-[#778E7E] font-bold">"Wah, kamu sudah mencatat banyak hal! Terus jujur dengan perasaanmu ya!"</p>
+            <div class="mt-8 text-center text-[#A5C0B0] font-medium italic">
+                "Setiap perasaan itu valid, terima kasih sudah berani mencatatnya hari ini."
             </div>
         </div>
     </div>

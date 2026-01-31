@@ -1,71 +1,37 @@
 <x-app-layout>
-    <div class="py-12 bg-[#EAF4F4] min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            <div class="mb-8 text-center">
-                <h2 class="text-3xl font-bold text-[#778E7E]">Halo, Apa kabar hari ini?</h2>
-                <p class="text-gray-600">Luangkan waktu sejenak untuk mengenali perasaanmu.</p>
+    <div class="py-12 bg-[#EAF4F4] min-h-screen flex items-center justify-center relative">
+        
+        <div class="absolute top-10 right-10 opacity-10 text-[150px] rotate-12 select-none">
+            🐻‍❄️
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="mb-10 animate-bounce">
+                <span class="text-8xl drop-shadow-lg">🐻‍❄️</span> 
+                <div class="bg-white px-6 py-3 rounded-2xl inline-block shadow-xl border-4 border-[#B9FBC0] mt-6">
+                    <p class="text-[#5F7A61] font-black text-lg">Halo! Saya Moo. Mau apa kita hari ini?</p>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 class="text-4xl font-black text-[#5F7A61] mb-12 tracking-tight">Pilih Menu Moodly</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-2xl border-t-8 border-[#C1E1C1] p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-[#778E7E]">Bagaimana suasana hatimu?</h3>
-                    
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="flex justify-between mb-6">
-                            <label class="text-center cursor-pointer group">
-                                <input type="radio" name="status" value="luar-biasa" class="hidden peer">
-                                <div class="text-4xl grayscale peer-checked:grayscale-0 group-hover:scale-110 transition">🌟</div>
-                                <span class="text-xs text-gray-500">Hebat</span>
-                            </label>
-                            <label class="text-center cursor-pointer group">
-                                <input type="radio" name="status" value="senang" class="hidden peer">
-                                <div class="text-4xl grayscale peer-checked:grayscale-0 group-hover:scale-110 transition">😊</div>
-                                <span class="text-xs text-gray-500">Senang</span>
-                            </label>
-                            <label class="text-center cursor-pointer group">
-                                <input type="radio" name="status" value="biasa" class="hidden peer">
-                                <div class="text-4xl grayscale peer-checked:grayscale-0 group-hover:scale-110 transition">😐</div>
-                                <span class="text-xs text-gray-500">Biasa</span>
-                            </label>
-                            <label class="text-center cursor-pointer group">
-                                <input type="radio" name="status" value="sedih" class="hidden peer">
-                                <div class="text-4xl grayscale peer-checked:grayscale-0 group-hover:scale-110 transition">😔</div>
-                                <span class="text-xs text-gray-500">Sedih</span>
-                            </label>
-                            <label class="text-center cursor-pointer group">
-                                <input type="radio" name="status" value="stres" class="hidden peer">
-                                <div class="text-4xl grayscale peer-checked:grayscale-0 group-hover:scale-110 transition">😫</div>
-                                <span class="text-xs text-gray-500">Stres</span>
-                            </label>
-                        </div>
-
-                        <textarea name="note" rows="3" class="w-full border-none bg-[#F9F9F9] rounded-xl focus:ring-[#C1E1C1]" placeholder="Ceritakan sedikit kenapa kamu merasa begitu..."></textarea>
-                        
-                        <button type="submit" class="mt-4 w-full bg-[#C1E1C1] hover:bg-[#A8D1A8] text-[#4F6355] font-bold py-3 rounded-xl transition">
-                            Simpan Perasaan Hari Ini
-                        </button>
-                    </form>
-                </div>
-
-                <div class="bg-[#FDF0D5] overflow-hidden shadow-sm sm:rounded-2xl p-6 flex flex-col justify-center border-l-8 border-[#C1E1C1]">
-                    <div class="text-4xl mb-3">💡</div>
-                    <h3 class="text-xl font-bold text-[#778E7E] mb-2">Tips Hari Ini</h3>
-                    <p class="text-[#4F6355] italic">
-                        "Cobalah menulis 3 hal kecil yang kamu syukuri hari ini. Menghargai hal kecil adalah langkah awal menuju ketenangan."
-                    </p>
-                </div>
-
-            </div>
-
-            <div class="mt-10 text-center">
-                <a href="#" class="text-sm font-medium text-red-400 hover:text-red-600 underline">
-                    Butuh bantuan profesional? Klik di sini untuk Mode Darurat.
+                <a href="{{ route('mood.create') }}" class="group bg-white p-10 rounded-[40px] shadow-[0_15px_0_0_#B9FBC0] hover:shadow-none hover:translate-y-2 transition-all border-4 border-white">
+                    <div class="text-7xl mb-6 group-hover:scale-110 transition duration-300">📝</div>
+                    <span class="text-2xl font-black text-[#5F7A61] block mb-2">Catat Mood</span>
+                    <p class="text-[#89A894] font-medium">Ceritakan perasaanmu ke Moo</p>
                 </a>
+
+                <a href="{{ route('mood.history') }}" class="group bg-white p-10 rounded-[40px] shadow-[0_15px_0_0_#9CF6FB] hover:shadow-none hover:translate-y-2 transition-all border-4 border-white">
+                    <div class="text-7xl mb-6 group-hover:scale-110 transition duration-300">📅</div>
+                    <span class="text-2xl font-black text-[#3b82f6] block mb-2">Riwayat Mood</span>
+                    <p class="text-[#7dd3fc] font-medium">Lihat perjalanan emosimu</p>
+                </a>
+
             </div>
 
+            <p class="mt-16 text-[#A5C0B0] font-bold italic">"Kesehatan mentalmu adalah prioritas Moo."</p>
         </div>
     </div>
 </x-app-layout>
