@@ -4,21 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Mood;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; // Tetap gunakan satu ini
 
 class MoodController extends Controller
 {
-    // Menampilkan halaman Menu Utama (Dashboard)
     public function index() {
         return view('dashboard');
     }
 
-    // Menampilkan halaman Input Mood
     public function create() {
         return view('mood.create');
     }
 
-    // Menyimpan data ke database
     public function store(Request $request) {
         $request->validate([
             'status' => 'required',
@@ -26,7 +23,7 @@ class MoodController extends Controller
         ]);
 
         Mood::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::user()->id, // Cara pemanggilan ID yang lebih eksplisit
             'status' => $request->status,
             'note' => $request->note,
         ]);
@@ -34,9 +31,20 @@ class MoodController extends Controller
         return redirect()->route('mood.history')->with('success', 'Mood berhasil disimpan!');
     }
 
-    // Menampilkan halaman Riwayat
     public function history() {
-        $moods = Mood::where('user_id', Auth::id())->latest()->get();
+        // Menggunakan Auth::user()->id agar konsisten
+        $moods = Mood::where('user_id', Auth::user()->id)->latest()->get();
         return view('mood.history', compact('moods'));
+    }
+
+    public function destroy($id)
+    {
+        $mood = Mood::where('id', $id)
+                    ->where('user_id', Auth::user()->id) 
+                    ->firstOrFail();
+        
+        $mood->delete();
+
+        return redirect()->route('mood.history')->with('success', 'Catatan berhasil dihapus!');
     }
 }

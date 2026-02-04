@@ -18,6 +18,7 @@
                             <th class="px-6 py-4 text-[#4F6355] font-black uppercase text-sm">Tanggal</th>
                             <th class="px-6 py-4 text-[#4F6355] font-black uppercase text-sm text-center">Mood</th>
                             <th class="px-6 py-4 text-[#4F6355] font-black uppercase text-sm">Catatan</th>
+                            <th class="px-8 py-5 font-black uppercase text-sm tracking-widest">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y-2 divide-[#EAF4F4]">
@@ -28,6 +29,15 @@
             {{ ['hebat'=>'🌟', 'senang'=>'😊', 'biasa'=>'😐', 'sedih'=>'😔', 'stres'=>'😫'][$m->status] }}
         </td>
         <td class="px-6 py-5 text-[#5F7A61]">{{ $m->note ?? '-' }}</td>
+        <td class="px-8 py-6">
+    <form action="{{ route('mood.destroy', $m->id) }}" method="POST" onsubmit="return confirm('Yakin mau hapus catatan ini?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="text-red-400 hover:text-red-600 font-bold transition">
+            Hapus 🗑️
+        </button>
+    </form>
+</td>
     </tr>
     @endforeach
 </tbody>
