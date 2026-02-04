@@ -1,27 +1,19 @@
 <?php
 
 use App\Http\Controllers\MoodController;
-use App\Http\Controllers\ProfileController; // Tambahkan ini!
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route Moodly & Profile dalam satu grup Auth
 Route::middleware(['auth', 'verified'])->group(function () {
-    
-    // --- FITUR MOODLY ANDA ---
+    // Dashboard & Riwayat (karena satu halaman)
     Route::get('/dashboard', [MoodController::class, 'index'])->name('dashboard');
-    Route::get('/mood/create', [MoodController::class, 'create'])->name('mood.create');
-    Route::post('/mood/store', [MoodController::class, 'store'])->name('mood.store');
-    Route::get('/mood/history', [MoodController::class, 'history'])->name('mood.history');
-    Route::delete('/mood/{id}', [MoodController::class, 'destroy'])->name('mood.destroy');
-
-  
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/moods', [MoodController::class, 'index'])->name('moods.index');
+    
+    // Simpan Mood
+    Route::post('/moods', [MoodController::class, 'store'])->name('moods.store');
 });
 
 require __DIR__.'/auth.php';

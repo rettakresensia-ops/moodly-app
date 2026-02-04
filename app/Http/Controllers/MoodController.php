@@ -4,47 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\Mood;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Tetap gunakan satu ini
+use Illuminate\Support\Facades\Auth;
 
 class MoodController extends Controller
 {
-    public function index() {
-        return view('dashboard');
+    public function index()
+    {
+        $quotes = [
+            "Tidak apa-apa merasa tidak baik-baik saja. ✨",
+            "Setiap hari adalah awal yang baru. 🌈",
+            "Kamu jauh lebih kuat dari yang kamu bayangkan. 💪",
+            "Jangan lupa berterima kasih pada dirimu hari ini. 🌻",
+            "Kebahagiaan berasal dari tindakanmu sendiri. 😊",
+            "Istirahatlah jika lelah, tapi jangan berhenti. ☁️",
+            "Satu langkah kecil tetaplah sebuah kemajuan. 👣",
+            "Napasmu adalah bukti kamu mampu melewati badai. 🌬️",
+            "Jadilah lembut pada dirimu sendiri hari ini. 🌿",
+            "Kegagalan adalah pelajaran untuk esok hari. 📖",
+            "Dunia lebih indah karena ada kamu. 🌏",
+            "Fokuslah pada hal kecil yang membuatmu tersenyum. 🎈",
+            "Kamu tidak harus sempurna untuk jadi luar biasa. ⭐",
+            "Percayalah pada prosesmu. 🌸",
+            "Hatimu layak mendapatkan kedamaian. 🕊️",
+            "Hari yang buruk tidak berarti hidup yang buruk. ☀️",
+            "Suaramu berharga, perasaanmu valid. 💖",
+            "Keberanian terkadang adalah suara lembut. 🌙",
+            "Jangan bandingkan musimmu dengan orang lain. 🍂",
+            "Kamu adalah penulis ceritamu sendiri. ✍️",
+            "Kebaikan pada diri sendiri akan berbuah manis. 🍯",
+            "Mendung tidak selamanya, matahari akan kembali. 🌤️",
+            "Tarik napas dalam. Kamu sudah melakukan yang terbaik. 🧘",
+            "Tantangan adalah kesempatan untuk tumbuh. 🌳",
+            "Masa depanmu cerah, tetaplah melangkah. 🕯️",
+            "Kesalahan adalah bukti kamu sedang mencoba. 🛠️",
+            "Cintai dirimu lebih dari kemarin. ❤️",
+            "Jangan biarkan awan gelap menutup sinarmu. 💡",
+            "Kesehatan mentalmu adalah prioritas. 🛡️",
+            "Terima kasih sudah bertahan sejauh ini. Kamu hebat! 🏅"
+        ];
+
+        $randomQuote = $quotes[array_rand($quotes)];
+        $moods = Mood::where('user_id', Auth::id())->latest()->get();
+
+        return view('dashboard', compact('randomQuote', 'moods'));
     }
 
-    public function create() {
-        return view('mood.create');
-    }
-
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
-            'status' => 'required',
-            'note' => 'nullable|string',
+            'emoji' => 'required',
+            'note' => 'required',
         ]);
 
         Mood::create([
-            'user_id' => Auth::user()->id, // Cara pemanggilan ID yang lebih eksplisit
-            'status' => $request->status,
+            'user_id' => Auth::id(),
+            'emoji' => $request->emoji,
             'note' => $request->note,
         ]);
 
-        return redirect()->route('mood.history')->with('success', 'Mood berhasil disimpan!');
-    }
-
-    public function history() {
-        // Menggunakan Auth::user()->id agar konsisten
-        $moods = Mood::where('user_id', Auth::user()->id)->latest()->get();
-        return view('mood.history', compact('moods'));
-    }
-
-    public function destroy($id)
-    {
-        $mood = Mood::where('id', $id)
-                    ->where('user_id', Auth::user()->id) 
-                    ->firstOrFail();
-        
-        $mood->delete();
-
-        return redirect()->route('mood.history')->with('success', 'Catatan berhasil dihapus!');
+        return redirect()->route('dashboard')->with('success', 'Mood berhasil disimpan!');
     }
 }
