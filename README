@@ -1,0 +1,47 @@
+# 🐻 Moodly: Your Daily Mental Health Companion
+
+**Moodly** adalah aplikasi jurnal perasaan berbasis web yang dirancang untuk membantu pengguna mencatat emosi harian dengan cara yang interaktif dan menyenangkan. Dipandu oleh maskot "Beruang Moo", aplikasi ini bertujuan membuat kebiasaan menulis jurnal menjadi lebih ringan dan konsisten.
+
+---
+
+## 📸 Tampilan Aplikasi
+
+| Dashboard Utama | Tulis Jurnal |
+| :---: | :---: |
+| Antarmuka ramah yang menyapa Anda. | Pilih emoji dan curahkan isi hatimu. |
+| ![Dashboard](https://github.com/rettakresensia-ops/moodly-app/blob/main/public/images/dashboard.png?raw=true) | ![Tulis Jurnal](https://github.com/rettakresensia-ops/moodly-app/blob/main/public/images/write.png?raw=true) |
+
+| Motivasi Harian | Riwayat Perasaan |
+| :---: | :---: |
+| Kutipan inspiratif yang berganti acak. | Rekam jejak emosi dari waktu ke waktu. |
+| ![Motivasi](https://github.com/rettakresensia-ops/moodly-app/blob/main/public/images/motivation.png?raw=true) | ![Riwayat](https://github.com/rettakresensia-ops/moodly-app/blob/main/public/images/history.png?raw=true) |
+
+---
+
+## 🚀 Fitur Unggulan
+
+- **Quick Mood Selection**: Input perasaan instan dengan emoji representatif (😊, 😢, 😡, 😴, ✨).
+- **Random Motivation Engine**: Menggunakan **Alpine.js** untuk mengganti kutipan motivasi tanpa muat ulang halaman (Zero Refresh).
+- **Smart History Tracking**: Menampilkan waktu relatif seperti "1 second ago" menggunakan fitur **Carbon** dari Laravel.
+- **Secure Data Management**: Setiap jurnal terikat pada akun pribadi untuk menjaga privasi pengguna.
+- **Delete Memories**: Kendali penuh bagi pengguna untuk mengelola atau menghapus catatan lama.
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+Aplikasi ini dibangun menggunakan stack teknologi modern:
+- **Backend**: [Laravel 12](https://laravel.com/) (PHP 8.2)
+- **Frontend**: [Tailwind CSS](https://tailwindcss.com/) & [Alpine.js](https://alpinejs.dev/)
+- **Database**: [MySQL](https://www.mysql.com/) (via phpMyAdmin)
+
+---
+
+## 🔧 Panduan Instalasi Lokal
+
+1. **Clone & Install**:
+   ```bash
+   git clone [https://github.com/rettakresensia-ops/moodly-app.git](https://github.com/rettakresensia-ops/moodly-app.git)
+   cd moodly-app
+   composer install
+   npm install
