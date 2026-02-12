@@ -1,59 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🐻 Moodly: Your Daily Mental Health Companion
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Moodly** adalah aplikasi jurnal kesehatan mental berbasis web yang dirancang untuk membantu pengguna melacak, mengekspresikan, dan memahami pola emosi mereka setiap hari. Dengan antarmuka yang ceria dan dukungan maskot "Beruang Moo", aplikasi ini bertujuan untuk menghilangkan hambatan dalam menulis jurnal melalui sistem input yang cepat dan interaktif.
 
-## About Laravel
+Aplikasi ini dibangun menggunakan framework **Laravel 12**, **Tailwind CSS**, dan **Alpine.js** untuk memberikan pengalaman pengguna yang mulus tanpa hambatan (*low-friction journaling*).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📸 Analisis Antarmuka & Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Berikut adalah penjelasan mendetail mengenai alur kerja dan fitur yang ada pada aplikasi Moodly sesuai dengan tampilan antarmuka:
 
-## Learning Laravel
+### 1. Dashboard Utama (Personalized Welcome)
+Halaman pertama yang menyapa pengguna secara personal. Desain menggunakan kartu navigasi yang modern untuk memberikan fokus pada pilihan tindakan utama.
+> ![Dashboard](public/images/dashboard.png)
+> * **Personal Greeting**: Sistem secara otomatis menyapa pengguna (Contoh: "Hai, Retta Sembiring!") dengan data dinamis.
+> * **Navigation Cards**: Terdapat tiga akses cepat: **Tulis Jurnal** untuk mencatat, **Motivasi** untuk asupan positif, dan **Riwayat** untuk melihat catatan lama.
+> * **Interactive UI**: Menggunakan skema warna yang menenangkan dan ikon yang representatif untuk setiap fungsi.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 2. Mood Picker & Journaling (Sistem Input Cepat)
+Fitur inti untuk merekam perasaan tanpa harus mengetik panjang jika sedang lelah.
+> ![Tulis Jurnal](public/images/write.png) 
+> *(Catatan: Gunakan kartu Tulis Jurnal untuk masuk ke mode ini)*
+> * **Visual Emoji Selection**: Pengguna cukup memilih emoji (Senang, Sedih, Marah, Mengantuk, Berkilau) untuk menentukan mood.
+> * **Narrative Textbox**: Tersedia ruang untuk menuliskan detail cerita atau alasan dibalik perasaan tersebut.
+> * **Instant Save**: Tombol "Simpan Jurnal" memastikan data terkirim ke database secara aman melalui proteksi CSRF.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Smart Motivation Engine (Random Quote)
+Untuk menjaga kesehatan mental, Moodly menyediakan fitur kutipan bijak yang dapat berubah secara instan.
+> ![Motivasi](public/images/motivation.png)
+> * **Zero-Refresh Interaction**: Menggunakan **Alpine.js**, kutipan akan berganti setiap kali tombol "Kutipan Lainnya" diklik tanpa perlu memuat ulang halaman.
+> * **Inspiring Content**: Berisi berbagai motivasi hidup untuk membangkitkan semangat pengguna.
 
-## Laravel Sponsors
+### 4. Memory History (Pelacakan Kronologis)
+Fitur untuk melihat kembali perjalanan emosi pengguna sebagai bentuk refleksi diri.
+> ![Riwayat](public/images/history.png)
+> * **Relative Time Formatting**: Menggunakan library **Carbon**, waktu ditampilkan secara natural seperti "1 second ago".
+> * **Visual Log**: Menampilkan emoji beserta catatan yang telah disimpan, memudahkan pengguna memantau tren suasana hati mereka.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🛠️ Detail Teknis (Tech Stack)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* **Framework**: [Laravel 12](https://laravel.com/) (MVC Architecture)
+* **Database**: MySQL (Pengelolaan tabel `users` dan `moods`)
+* **Frontend**: 
+    * **Tailwind CSS**: Untuk styling utility-first yang bersih dan responsif.
+    * **Alpine.js**: Mengelola reaktivitas navigasi dan pengacakan kutipan motivasi.
+* **Date Handling**: Laravel Carbon untuk manipulasi timestamp yang manusiawi.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🔧 Panduan Instalasi & Pengembangan
 
-## Code of Conduct
+Jika Anda ingin menjalankan proyek ini secara lokal, ikuti langkah berikut:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone Repository**:
+   ```bash
+   git clone [https://github.com/rettakresensia-ops/moodly-app.git](https://github.com/rettakresensia-ops/moodly-app.git)
+   cd moodly-app
+    ```
+2.  **Install Dependencies**:
+    ```bash
+    composer install
+    npm install
+    ```
+3.  **Setup Database**:
+    * Buat database bernama `moodly` di phpMyAdmin.
+    * Edit file `.env` dan sesuaikan `DB_DATABASE=moodly`.
+4.  **Migrate & Run**:
+    ```bash
+    php artisan migrate
+    php artisan serve
+    npm run dev
+    ```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ⚠️ Troubleshooting (Penanganan Kendala)
 
-## License
+### Error 419 | Page Expired
+Biasanya terjadi karena session expired atau token CSRF hilang. Pastikan `@csrf` ada dalam tag form Anda.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Database Not Updating
+Jika kolom baru (seperti `status` atau `emoji`) tidak muncul, jalankan perintah sinkronisasi ulang:
+```bash
+php artisan migrate:refresh

@@ -50,18 +50,18 @@ class MoodController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'emoji' => 'required',
-            'note' => 'required',
-        ]);
+{
+    $request->validate([
+        'emoji' => 'required',
+        'note' => 'required',
+    ]);
 
-        Mood::create([
-            'user_id' => Auth::id(),
-            'emoji' => $request->emoji,
-            'note' => $request->note,
-        ]);
+    $request->user()->moods()->create([
+        'emoji' => $request->emoji,
+        'note' => $request->note,
+        'status' => 'active', // <--- TAMBAHKAN INI (Atau nilai apa pun yang kamu inginkan)
+    ]);
 
-        return redirect()->route('dashboard')->with('success', 'Mood berhasil disimpan!');
-    }
+    return redirect()->back();
+}
 }

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mood extends Model
 {
-    // Baris ini sangat penting agar data bisa masuk ke database
-    protected $fillable = ['user_id', 'status', 'note'];
+    // Tambahkan 'status' di sini
+    protected $fillable = ['user_id', 'emoji', 'note', 'status'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
