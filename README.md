@@ -96,3 +96,20 @@ Biasanya terjadi karena session expired atau token CSRF hilang. Pastikan `@csrf`
 Jika kolom baru (seperti `status` atau `emoji`) tidak muncul, jalankan perintah sinkronisasi ulang:
 ```bash
 php artisan migrate:refresh
+
+## 📊 Diagram Arsitektur & Alur Data (API)
+
+```mermaid
+graph TD
+    A[User / Android Device] -- Request GET/POST --> B(Laravel API Routes)
+    B --> C{MoodController}
+    C -- Validasi Data --> D[Database MySQL]
+    D -- Kirim Data --> C
+    C -- Response JSON --> E[JSON Data]
+    E -- Tampilkan di HP --> A
+    
+    subgraph "Backend Server"
+    B
+    C
+    D
+    end
