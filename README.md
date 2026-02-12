@@ -1,10 +1,8 @@
 # 🐻 Moodly: Your Daily Mental Health Companion
 
-**Moodly** adalah aplikasi jurnal kesehatan mental berbasis web yang dirancang untuk membantu pengguna melacak, mengekspresikan, dan memahami pola emosi mereka setiap hari. Dengan antarmuka yang ceria dan dukungan maskot "Beruang Moo", aplikasi ini bertujuan untuk menghilangkan hambatan dalam menulis jurnal melalui sistem input yang cepat dan interaktif.
+**Moodly** adalah aplikasi jurnal kesehatan mental berbasis web yang dirancang untuk membantu pengguna melacak, mengekspresikan, dan memahami pola emosi mereka setiap hari.
 
-Aplikasi ini dibangun menggunakan framework **Laravel 12**, **Tailwind CSS**, dan **Alpine.js** untuk memberikan pengalaman pengguna yang mulus tanpa hambatan (*low-friction journaling*).
-
----
+Aplikasi ini dibangun menggunakan framework **Laravel 12**, **Tailwind CSS**, dan **Alpine.js**.
 
 ---
 
@@ -12,43 +10,59 @@ Aplikasi ini dibangun menggunakan framework **Laravel 12**, **Tailwind CSS**, da
 
 ### 1. Alur Input Data (Create)
 * **User Interface**: Pengguna mengisi formulir di Web atau Aplikasi Android.
-* **Request Handling**: Frontend mengirimkan data ke fungsi `store()` (untuk Web) atau `storeApi()` (untuk Android) di `MoodController`.
-* **Validation**: Controller melakukan validasi data untuk memastikan input tidak kosong dan sesuai format.
-* **Database Persistence**: Setelah valid, data disimpan ke dalam tabel `moods` di database MySQL.
-* **Feedback System**: Sistem memberikan respon balik berupa pesan "Berhasil Disimpan" ke layar pengguna.
-
-## 📸 Analisis Antarmuka & Fitur Utama
-
-Berikut adalah penjelasan mendetail mengenai alur kerja dan fitur yang ada pada aplikasi Moodly sesuai dengan tampilan antarmuka:
-
-### 1. Dashboard Utama (Personalized Welcome)
-Halaman pertama yang menyapa pengguna secara personal. Desain menggunakan kartu navigasi yang modern untuk memberikan fokus pada pilihan tindakan utama.
-> ![Dashboard](public/images/dashboard.png)
-> * **Personal Greeting**: Sistem secara otomatis menyapa pengguna (Contoh: "Hai, Retta Sembiring!") dengan data dinamis.
-> * **Navigation Cards**: Terdapat tiga akses cepat: **Tulis Jurnal** untuk mencatat, **Motivasi** untuk asupan positif, dan **Riwayat** untuk melihat catatan lama.
-> * **Interactive UI**: Menggunakan skema warna yang menenangkan dan ikon yang representatif untuk setiap fungsi.
-
-### 2. Mood Picker & Journaling (Sistem Input Cepat)
-Fitur inti untuk merekam perasaan tanpa harus mengetik panjang jika sedang lelah.
-> ![Tulis Jurnal](public/images/write.png) 
-> *(Catatan: Gunakan kartu Tulis Jurnal untuk masuk ke mode ini)*
-> * **Visual Emoji Selection**: Pengguna cukup memilih emoji (Senang, Sedih, Marah, Mengantuk, Berkilau) untuk menentukan mood.
-> * **Narrative Textbox**: Tersedia ruang untuk menuliskan detail cerita atau alasan dibalik perasaan tersebut.
-> * **Instant Save**: Tombol "Simpan Jurnal" memastikan data terkirim ke database secara aman melalui proteksi CSRF.
-
-### 3. Smart Motivation Engine (Random Quote)
-Untuk menjaga kesehatan mental, Moodly menyediakan fitur kutipan bijak yang dapat berubah secara instan.
-> ![Motivasi](public/images/motivation.png)
-> * **Zero-Refresh Interaction**: Menggunakan **Alpine.js**, kutipan akan berganti setiap kali tombol "Kutipan Lainnya" diklik tanpa perlu memuat ulang halaman.
-> * **Inspiring Content**: Berisi berbagai motivasi hidup untuk membangkitkan semangat pengguna.
-
-### 4. Memory History (Pelacakan Kronologis)
-Fitur untuk melihat kembali perjalanan emosi pengguna sebagai bentuk refleksi diri.
-> ![Riwayat](public/images/history.png)
-> * **Relative Time Formatting**: Menggunakan library **Carbon**, waktu ditampilkan secara natural seperti "1 second ago".
-> * **Visual Log**: Menampilkan emoji beserta catatan yang telah disimpan, memudahkan pengguna memantau tren suasana hati mereka.
+* **Request Handling**: Frontend mengirimkan data ke fungsi `store()` di `MoodController`.
+* **Validation**: Controller melakukan validasi data agar tidak kosong.
+* **Database Persistence**: Data disimpan ke dalam tabel `moods` di MySQL.
+* **Feedback System**: Sistem memberikan respon "Berhasil Disimpan".
 
 ---
+
+## 📸 Fitur Utama
+* **Dashboard Utama**: Sapaan personal dan navigasi kartu modern.
+* **Mood Picker**: Memilih emoji dan menulis detail cerita.
+* **Motivation Engine**: Kutipan bijak instan tanpa refresh halaman (**Alpine.js**).
+* **Memory History**: Riwayat perasaan dengan format waktu natural (**Carbon**).
+
+---
+
+## 📊 Diagram Arsitektur
+
+# 🐻 Moodly: Your Daily Mental Health Companion
+
+**Moodly** adalah aplikasi jurnal kesehatan mental berbasis web yang dirancang untuk membantu pengguna melacak, mengekspresikan, dan memahami pola emosi mereka setiap hari.
+
+---
+
+## 🧠 Struktur Logika (Alur Data)
+
+### 1. Alur Input Data (Create)
+* **User Interface**: Pengguna mengisi formulir di Web atau Aplikasi Android.
+* **Request Handling**: Frontend mengirim data ke fungsi `store()` di `MoodController`.
+* **Validation**: Controller memastikan data tidak kosong.
+* **Database**: Data disimpan ke tabel `moods` di MySQL.
+* **Feedback**: Sistem memberikan pesan "Berhasil Disimpan".
+
+---
+
+## 📊 Diagram Arsitektur & Alur Data (API)
+
+```mermaid
+graph TD
+    A[User / Android Device] -- Request HTTP --> B(Laravel API Routes)
+    B --> C{MoodController}
+    C -- Validasi Data --> D[Database MySQL]
+    D -- Kirim Data --> C
+    C -- Response JSON --> E[JSON Data]
+    E -- Tampilkan di HP --> A
+    
+    subgraph "Backend Server (Laravel)"
+    B
+    C
+    D
+    end
+```
+
+
 
 ## 🛠️ Detail Teknis (Tech Stack)
 
@@ -95,21 +109,6 @@ Biasanya terjadi karena session expired atau token CSRF hilang. Pastikan `@csrf`
 ### Database Not Updating
 Jika kolom baru (seperti `status` atau `emoji`) tidak muncul, jalankan perintah sinkronisasi ulang:
 ```bash
-php artisan migrate:refresh
+php artisan migrate:refresh 
 
-## 📊 Diagram Arsitektur & Alur Data (API)
 
-```mermaid
-graph TD
-    A[User / Android Device] -- Request --> B(Laravel API Routes)
-    B --> C{MoodController}
-    C -- Validasi --> D[Database MySQL]
-    D -- Kirim Data --> C
-    C -- Response JSON --> E[JSON Data]
-    E -- Tampilkan di HP --> A
-    
-    subgraph "Backend Server"
-    B
-    C
-    D
-    end
