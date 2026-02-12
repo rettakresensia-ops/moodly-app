@@ -101,9 +101,9 @@ php artisan migrate:refresh
 
 ```mermaid
 graph TD
-    A[User / Android Device] -- Request GET/POST --> B(Laravel API Routes)
+    A[User / Android Device] -- Request --> B(Laravel API Routes)
     B --> C{MoodController}
-    C -- Validasi Data --> D[Database MySQL]
+    C -- Validasi --> D[Database MySQL]
     D -- Kirim Data --> C
     C -- Response JSON --> E[JSON Data]
     E -- Tampilkan di HP --> A
