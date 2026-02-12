@@ -6,6 +6,17 @@ Aplikasi ini dibangun menggunakan framework **Laravel 12**, **Tailwind CSS**, da
 
 ---
 
+---
+
+## 🧠 Struktur Logika (Alur Data)
+
+### 1. Alur Input Data (Create)
+* **User Interface**: Pengguna mengisi formulir di Web atau Aplikasi Android.
+* **Request Handling**: Frontend mengirimkan data ke fungsi `store()` (untuk Web) atau `storeApi()` (untuk Android) di `MoodController`.
+* **Validation**: Controller melakukan validasi data untuk memastikan input tidak kosong dan sesuai format.
+* **Database Persistence**: Setelah valid, data disimpan ke dalam tabel `moods` di database MySQL.
+* **Feedback System**: Sistem memberikan respon balik berupa pesan "Berhasil Disimpan" ke layar pengguna.
+
 ## 📸 Analisis Antarmuka & Fitur Utama
 
 Berikut adalah penjelasan mendetail mengenai alur kerja dan fitur yang ada pada aplikasi Moodly sesuai dengan tampilan antarmuka:
