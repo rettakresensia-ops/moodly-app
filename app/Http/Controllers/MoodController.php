@@ -43,7 +43,7 @@ class MoodController extends Controller
             "Terima kasih sudah bertahan sejauh ini. Kamu hebat! 🏅"
         ];
 
-        $randomQ uote = $quotes[array_rand($quotes)];
+        $randomQuote = $quotes[array_rand($quotes)];
         $moods = Mood::where('user_id', Auth::id())->latest()->get();
 
         return view('dashboard', compact('randomQuote', 'moods'));
